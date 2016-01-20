@@ -13,8 +13,6 @@ fi
 
 docker run -d \
        --name single-node \
-       -p 9042:9042 \
-       -v $(pwd)/single-node-config:/etc/cassandra \
        -v $(pwd)/batch:/tmp/batch \
        cassandra:latest
 
@@ -24,3 +22,11 @@ do
   sleep 1s
   docker exec -it single-node cqlsh -f /tmp/batch
 done
+
+echo "GREP KEY CONFIG PARAMS..."
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "\- seeds:"
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "^cluster_name:"
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "^listen_address:"
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "^broadcast_address:"
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "^rpc_address:"
+docker exec -it single-node cat /etc/cassandra/cassandra.yaml | grep "^broadcast_rpc_address:"
