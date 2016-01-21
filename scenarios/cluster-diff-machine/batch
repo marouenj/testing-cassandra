@@ -1,0 +1,4 @@
+use system_schema;
+select * from system_schema.keyspaces;
+create keyspace demo with replication = { 'class': 'SimpleStrategy', 'replication_factor': '2' };
+select * from system_schema.keyspaces;
