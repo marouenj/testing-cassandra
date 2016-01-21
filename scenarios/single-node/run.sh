@@ -2,8 +2,7 @@
 
 if [[ $1 == "stop" ]];
 then
-  docker stop single-node;
-  docker rm single-node;
+  docker rm -f single-node;
 fi
 
 if [[ $1 == "rm" ]];
@@ -19,7 +18,7 @@ docker run -d \
 docker exec -it single-node cqlsh -f /tmp/batch
 while [[ $(echo $?) = "1" ]];
 do
-  sleep 1s
+  sleep 2s
   docker exec -it single-node cqlsh -f /tmp/batch
 done
 
