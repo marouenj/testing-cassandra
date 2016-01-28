@@ -1,0 +1,41 @@
+use system_schema;
+select * from system_schema.keyspaces;
+create keyspace demo with replication = { 'class': 'SimpleStrategy', 'replication_factor': '1' };
+select * from system_schema.keyspaces;
+
+use demo;
+
+// using a primary-key column
+create table people (
+  user_name varchar,
+  gender varchar,
+  birth_year int,
+  primary key (user_name)
+);
+
+insert into people (user_name, gender, birth_year) values ('user_1_1986', 'Male', 1986);
+insert into people (user_name, gender            ) values ('user_2'     , 'Male'      );
+insert into people (user_name,         birth_year) values ('user_3_1986'        , 1986);
+insert into people (user_name,         birth_year) values ('user_4_1986'        , 1986);
+insert into people (user_name,         birth_year) values ('user_5_1986'        , 1986);
+insert into people (user_name,         birth_year) values ('user_6_1980'        , 1980);
+insert into people (user_name,         birth_year) values ('user_7_1980'        , 1980);
+
+select * from people;
+
+// using a compound primary key
+create table people_by_age (
+  user_name varchar,
+  birth_year int,
+  primary key (user_name, birth_year)
+);
+
+insert into people_by_age (user_name, birth_year) values ('user_1_1986', 1986);
+insert into people_by_age (user_name, birth_year) values ('user_2_1987', 1987);
+insert into people_by_age (user_name, birth_year) values ('user_3_1986', 1986);
+insert into people_by_age (user_name, birth_year) values ('user_4_1986', 1986);
+insert into people_by_age (user_name, birth_year) values ('user_5_1986', 1986);
+insert into people_by_age (user_name, birth_year) values ('user_6_1980', 1980);
+insert into people_by_age (user_name, birth_year) values ('user_7_1980', 1980);
+
+select * from people_by_age;
