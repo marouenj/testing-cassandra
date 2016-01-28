@@ -14,7 +14,7 @@ Vagrant.configure("2") do |cluster|
 
         machine.vm.provider "virtualbox" do |vbox|
             vbox.name = "cassandra"
-            vbox.memory = 4096
+            vbox.memory = 2048
         end
     end
 
